@@ -53,7 +53,7 @@ train_sub <- read.table("./UCI HAR Dataset/train/subject_train.txt")
 ```
 
 
-Step 1				
+######Step 1				
 Merge training and test sets               
 bind test and train tables separately (rbind)
 
@@ -79,7 +79,7 @@ dt <- cbind(dt, dt_set)
  [1] 10299   563
 
 
-Step 2				
+######Step 2				
  Extract only measurements on the mean 	
  and standard deviation for each measurement	                
 				
@@ -116,7 +116,7 @@ sm_cols <- feats$V2[sm_cols]
 ```
 
 						
-Step 3			
+######Step 3			
 Uses descriptive activity names to name the activities 	in the data set	                
 merge the ACTIVITY values using label column
 
@@ -137,7 +137,7 @@ mergeData is the dataframe that has the data after step3
 activity column has values of it's descriptions now
 
 					
-Step 4				
+######Step 4				
 Appropriately labels the data set with descriptive variable names		                	
 						
 
@@ -149,7 +149,7 @@ drops <- c("label","id")
 mergeData <- mergeData[ , !(names(mergeData) %in% drops)]
 ```
 				
-Step 5				
+######Step 5				
 From the data set in step 4, 		
 create a second, independent tidy data	
 set with the average of each variable	
