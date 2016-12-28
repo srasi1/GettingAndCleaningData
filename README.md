@@ -23,14 +23,14 @@ You should create one R script called run_analysis.R that does the following.
 #
 ## download the raw data
 #
-
+```
 library(dplyr)
 fileUrl <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
 download.file(fileUrl, destfile = "./FUCIDataset.zip", method = "curl")
 zipF<- "./FUCIDataset.zip"
 outDir<-"./"
 unzip(zipF,exdir=outDir)
-
+```
 
           Files used for data
 
