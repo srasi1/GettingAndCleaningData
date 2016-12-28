@@ -79,14 +79,11 @@ dt <- cbind(dt, dt_set)
  [1] 10299   563
 
 
-		Step 2				
-    Extract only measurements on the mean 	
-      and standard deviation for each 	
-	     measurement	                
-						
-
-
- read features and make unique (make.names & gsub)
+Step 2				
+ Extract only measurements on the mean 	
+ and standard deviation for each measurement	                
+				
+read features and make unique (make.names & gsub)
 
 ```
 feats <- read.table("./UCI HAR Dataset/features.txt")
@@ -94,11 +91,11 @@ feats$V2 <- make.names(feats$V2, unique = TRUE, allow_ = FALSE)
 feats$V2 <- gsub(".", "" , feats$V2, fixed = T)
 ```
 
- 1. All column names of dataset dt(merged dataset) 
- 2. Find column names with std and mean - sm_col_ind
- 3. dataset with only std and mean measurements - dt_std_mean
- 4. std and mean features - sm_col_name
- 5. column names of dataset (only with std and mean measurements)
+1. All column names of dataset dt(merged dataset) 
+2. Find column names with std and mean - sm_col_ind
+3. dataset with only std and mean measurements - dt_std_mean
+4. std and mean features - sm_col_name
+5. column names of dataset (only with std and mean measurements)
     is reset with right column names from features list
 
 ```
@@ -107,13 +104,11 @@ sm_col_ind <- grep("mean|std|Mean", dt_colname)
 dt_std_mean <- dt[,c(1, 2, sm_col_ind)]
 ```
 
-  dt_std_mean is the data frame that has the data of step2
-  i.e. with all columns of mean, std and subject & label(activity)
+dt_std_mean is the data frame that has the data of step2
+i.e. with all columns of mean, std and subject & label(activity)
 
-
-
- storing all std and mean col names 
- in sm_cols variable for future use
+storing all std and mean col names 
+in sm_cols variable for future use
 
 ```
 sm_cols <- grep("mean|std|Mean", feats$V2)
@@ -121,21 +116,16 @@ sm_cols <- feats$V2[sm_cols]
 ```
 
 						
-		Step 3			
-    Uses descriptive activity 			
-      names to name the activities 		
-	     in the data set	                
-
-
- merge the ACTIVITY values using label column
+Step 3			
+Uses descriptive activity names to name the activities 	in the data set	                
+merge the ACTIVITY values using label column
 
 ```
 dt_act <- read.table("./UCI HAR Dataset/activity_labels.txt")
 colnames(dt_act) <- c("actNum", "actName")
 ```
 
- creating a new column id to preserve
- the current order of the data
+creating a new column id to preserve the current order of the data
 
 ```
 dt_std_mean$id <- 1:nrow(dt_std_mean)
@@ -143,14 +133,12 @@ mergeData <- merge(dt_std_mean, dt_act, by.x = "label", by.y = "actNum", sort = 
 mergeData <- mergeData[order(mergeData$id), ]
 ```
 
- mergeData is the dataframe that has the data after step3
- activity column has values of it's descriptions now
+mergeData is the dataframe that has the data after step3
+activity column has values of it's descriptions now
 
-						
-		Step 4				
-    Appropriately labels the data		
-    set with descriptive variable 		
-	names		                	
+					
+Step 4				
+Appropriately labels the data set with descriptive variable names		                	
 						
 
 ```
@@ -160,18 +148,14 @@ colnames(mergeData) <- sm_col_name
 drops <- c("label","id")
 mergeData <- mergeData[ , !(names(mergeData) %in% drops)]
 ```
-
-
-						
-		Step 5				
-    From the data set in step 4, 		
-    create a second, independent tidy data	
-    set with the average of each variable	
-    for each activity and each subject		
-						
+				
+Step 5				
+From the data set in step 4, 		
+create a second, independent tidy data	
+set with the average of each variable	
+for each activity and each subject		
 
 ```
 fMergeData <- aggregate(x = mergeData[sm_cols], by = mergeData[c("subject", "actname")], FUN = mean)
 write.csv(fMergeData, file = "./fMergeData.csv",row.names=FALSE)
 ```
-  
