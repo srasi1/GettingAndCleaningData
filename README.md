@@ -18,11 +18,11 @@ You should create one R script called run_analysis.R that does the following.
     4. Appropriately labels the data set with descriptive variable names.
     5. From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
     
-  ##  Explanation of Code (run_analysis.R)
+##  Explanation of Code (run_analysis.R)
   
-#
+
 ###### download the raw data
-#
+
 ```
 library(dplyr)
 fileUrl <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
@@ -32,16 +32,16 @@ outDir<-"./"
 unzip(zipF,exdir=outDir)
 ```
 
-          Files used for data
+	Files used for data
 
->   test/y_test.txt   		label	(2947 rows)
->   test/subject_test.txt  	sub	    (2947 rows)
->   test/X_test.txt		    set	    (2947 rows)
->   train/y_train.txt		label	(7352 rows)
->   train/subject_train.txt	sub	    (7352 rows)
->   train/X_train.txt		set	    (7352 rows)
+	test/y_test.txt   		label	(2947 rows)
+	test/subject_test.txt  	sub	    (2947 rows)
+	test/X_test.txt		    set	    (2947 rows)
+   	train/y_train.txt		label	(7352 rows)
+   	train/subject_train.txt	sub	    (7352 rows)
+   	train/X_train.txt		set	    (7352 rows)
 
-> Read all the 6 files into tables (read.table)
+	Read all the 6 files into tables (read.table)
 
 ```
 test_lab <- read.table("./UCI HAR Dataset/test/y_test.txt")
