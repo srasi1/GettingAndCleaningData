@@ -32,16 +32,16 @@ outDir<-"./"
 unzip(zipF,exdir=outDir)
 ```
 
-	Files used for data
+Files used for data
 
-	test/y_test.txt   		label	(2947 rows)
-	test/subject_test.txt  	sub	    (2947 rows)
-	test/X_test.txt		    set	    (2947 rows)
-   	train/y_train.txt		label	(7352 rows)
-   	train/subject_train.txt	sub	    (7352 rows)
-   	train/X_train.txt		set	    (7352 rows)
+1. test/y_test.txt   		label	    (2947 rows)
+2. test/subject_test.txt  	sub	    (2947 rows)
+3. test/X_test.txt		set	    (2947 rows)
+4. train/y_train.txt		label	    (7352 rows)
+5. train/subject_train.txt	sub	    (7352 rows)
+6. train/X_train.txt		set	    (7352 rows)
 
-	Read all the 6 files into tables (read.table)
+Read all the 6 files into tables (read.table)
 
 ```
 test_lab <- read.table("./UCI HAR Dataset/test/y_test.txt")
@@ -53,22 +53,18 @@ train_sub <- read.table("./UCI HAR Dataset/train/subject_train.txt")
 ```
 
 
-	Step 1				
-    Merge training and test sets               
+Step 1				
+Merge training and test sets               
+bind test and train tables separately (rbind)
 
-
-
- bind test and train tables separately (rbind)
 ```
 dt_sub <- rbind(train_sub, test_sub)
 dt_lab <- rbind(train_lab, test_lab)
 dt_set <- rbind(train_set, test_set)
 ```
-
- update colnames for subject and labelel tables
-
- bind sub, lab and set tables 
- to make 1 dataframe (cbind)
+update colnames for subject and labelel tables
+bind sub, lab and set tables 
+to make 1 dataframe (cbind)
 
 ```
 colnames(dt_sub) <- c("subject")
