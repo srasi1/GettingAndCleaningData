@@ -21,7 +21,7 @@ You should create one R script called run_analysis.R that does the following.
   ##  Explanation of Code (run_analysis.R)
   
 #
-## download the raw data
+###### download the raw data
 #
 ```
 library(dplyr)
