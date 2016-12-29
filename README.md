@@ -62,8 +62,8 @@ dt_sub <- rbind(train_sub, test_sub)
 dt_lab <- rbind(train_lab, test_lab)
 dt_set <- rbind(train_set, test_set)
 ```
-update colnames for subject and labelel tables
-bind sub, lab and set tables 
+update column names for subject (person) and label (activity) tables
+bind sub, lab and set (data) tables 
 to make 1 dataframe (cbind)
 
 ```
@@ -75,6 +75,7 @@ dt <- cbind(dt, dt_set)
 ```
 
  dt is the data frame that has the data of step1
+ At this step
  dim(dt)
  [1] 10299   563
 
@@ -83,7 +84,8 @@ dt <- cbind(dt, dt_set)
  Extract only measurements on the mean 	
  and standard deviation for each measurement	                
 				
-read features and make unique (make.names & gsub)
+Read features and make unique (make.names & gsub)
+We are making the column names unique since there are some columns repeated for 3 times
 
 ```
 feats <- read.table("./UCI HAR Dataset/features.txt")
@@ -91,12 +93,9 @@ feats$V2 <- make.names(feats$V2, unique = TRUE, allow_ = FALSE)
 feats$V2 <- gsub(".", "" , feats$V2, fixed = T)
 ```
 
-1. All column names of dataset dt(merged dataset) 
+1. All column names of dataset dt(merged dataset) - dt_colname
 2. Find column names with std and mean - sm_col_ind
 3. dataset with only std and mean measurements - dt_std_mean
-4. std and mean features - sm_col_name
-5. column names of dataset (only with std and mean measurements)
-    is reset with right column names from features list
 
 ```
 dt_colname <- c(c("subject", "label"), feats$V2)
@@ -105,16 +104,24 @@ dt_std_mean <- dt[,c(1, 2, sm_col_ind)]
 ```
 
 dt_std_mean is the data frame that has the data of step2
-i.e. with all columns of mean, std and subject & label(activity)
+i.e. with all columns of mean, std for each subject & label(activity)
+
+*46 columns with mean
+*7 columns with Mean
+*33 columns with std
+
+86 columns of measurement data, one column 
+for subject and one column for activity
 
 storing all std and mean col names 
 in sm_cols variable for future use
+dim(dt_std_mean)
+[1] 10299 88
 
 ```
 sm_cols <- grep("mean|std|Mean", feats$V2)
 sm_cols <- feats$V2[sm_cols]
 ```
-
 						
 ######Step 3			
 Uses descriptive activity names to name the activities 	in the data set	                
@@ -126,7 +133,8 @@ colnames(dt_act) <- c("actNum", "actName")
 ```
 
 creating a new column id to preserve the current order of the data
-
+Merging the data using activity data frame and then order the data set
+  to make it in the order of original data set
 ```
 dt_std_mean$id <- 1:nrow(dt_std_mean)
 mergeData <- merge(dt_std_mean, dt_act, by.x = "label", by.y = "actNum", sort = FALSE)
@@ -138,8 +146,9 @@ activity column has values of it's descriptions now
 
 					
 ######Step 4				
-Appropriately labels the data set with descriptive variable names		                	
-						
+Appropriately label the data set with descriptive variable names
+We are going to pull the column names from the feature list to 
+name the columns of the data set
 
 ```
 sm_col_name <- dt_colname[sm_col_ind]
