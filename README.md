@@ -23,7 +23,7 @@ You should create one R script called run_analysis.R that does the following.
 
 ###### download the raw data
 
-```
+```R
 library(dplyr)
 fileUrl <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
 download.file(fileUrl, destfile = "./FUCIDataset.zip", method = "curl")
@@ -43,7 +43,7 @@ Files used for data
 
 Read all the 6 files into tables (read.table)
 
-```
+```R
 test_lab <- read.table("./UCI HAR Dataset/test/y_test.txt")
 train_lab <- read.table("./UCI HAR Dataset/train/y_train.txt")
 test_set <- read.table("./UCI HAR Dataset/test/X_test.txt")
@@ -57,7 +57,7 @@ train_sub <- read.table("./UCI HAR Dataset/train/subject_train.txt")
 Merge training and test sets               
 bind test and train tables separately (rbind)
 
-```
+```R
 dt_sub <- rbind(train_sub, test_sub)
 dt_lab <- rbind(train_lab, test_lab)
 dt_set <- rbind(train_set, test_set)
@@ -66,7 +66,7 @@ update column names for subject (person) and label (activity) tables
 bind sub, lab and set (data) tables 
 to make 1 dataframe (cbind)
 
-```
+```R
 colnames(dt_sub) <- c("subject")
 colnames(dt_lab) <- c("label")
 
@@ -87,7 +87,7 @@ dt <- cbind(dt, dt_set)
 Read features and make unique (make.names & gsub)
 We are making the column names unique since there are some columns repeated for 3 times
 
-```
+```R
 feats <- read.table("./UCI HAR Dataset/features.txt")
 feats$V2 <- make.names(feats$V2, unique = TRUE, allow_ = FALSE)
 feats$V2 <- gsub(".", "" , feats$V2, fixed = T)
@@ -97,7 +97,7 @@ feats$V2 <- gsub(".", "" , feats$V2, fixed = T)
 2. Find column names with std and mean - sm_col_ind
 3. dataset with only std and mean measurements - dt_std_mean
 
-```
+```R
 dt_colname <- c(c("subject", "label"), feats$V2)
 sm_col_ind <- grep("mean|std|Mean", dt_colname)
 dt_std_mean <- dt[,c(1, 2, sm_col_ind)]
@@ -119,7 +119,7 @@ for subject and one column for activity
 storing all std and mean col names 
 in sm_cols variable for future use
 
-```
+```R
 sm_cols <- grep("mean|std|Mean", feats$V2)
 sm_cols <- feats$V2[sm_cols]
 ```
@@ -128,7 +128,7 @@ sm_cols <- feats$V2[sm_cols]
 Uses descriptive activity names to name the activities 	in the data set	                
 merge the ACTIVITY values using label column
 
-```
+```R
 dt_act <- read.table("./UCI HAR Dataset/activity_labels.txt")
 colnames(dt_act) <- c("actNum", "actName")
 ```
@@ -136,7 +136,7 @@ colnames(dt_act) <- c("actNum", "actName")
 creating a new column id to preserve the current order of the data
 Merging the data using activity data frame and then order the data set
   to make it in the order of original data set
-```
+```R
 dt_std_mean$id <- 1:nrow(dt_std_mean)
 mergeData <- merge(dt_std_mean, dt_act, by.x = "label", by.y = "actNum", sort = FALSE)
 mergeData <- mergeData[order(mergeData$id), ]
@@ -153,7 +153,7 @@ Appropriately label the data set with descriptive variable names
 We are going to pull the column names from the feature list to 
 name the columns of the data set
 
-```
+```R
 sm_col_name <- dt_colname[sm_col_ind]
 sm_col_name <- c("label", "subject", sm_col_name, "id", "actname")
 colnames(mergeData) <- sm_col_name
@@ -181,7 +181,7 @@ From the data set in step 4,
 create a second, independent tidy data	set with the average 
 of each variable for each activity and each subject		
 
-```
+```R
 fMergeData <- aggregate(x = mergeData[sm_cols], by = mergeData[c("subject", "actname")], FUN = mean)
 write.csv(fMergeData, file = "./fMergeData.csv",row.names=FALSE)
 ```
