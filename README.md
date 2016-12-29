@@ -141,6 +141,8 @@ dt_std_mean$id <- 1:nrow(dt_std_mean)
 mergeData <- merge(dt_std_mean, dt_act, by.x = "label", by.y = "actNum", sort = FALSE)
 mergeData <- mergeData[order(mergeData$id), ]
 ```
+> dim(mergeData)
+[1] 10299    88
 
 mergeData is the dataframe that has the data after step3
 activity column has values of it's descriptions now
@@ -158,6 +160,9 @@ colnames(mergeData) <- sm_col_name
 drops <- c("label","id")
 mergeData <- mergeData[ , !(names(mergeData) %in% drops)]
 ```
+> dim(mergeData)
+[1] 10299    88
+
 A sample of mergeData
 > head(mergeData)
 
@@ -173,11 +178,13 @@ A sample of mergeData
 
 ######Step 5				
 From the data set in step 4, 		
-create a second, independent tidy data	
-set with the average of each variable	
-for each activity and each subject		
+create a second, independent tidy data	set with the average 
+of each variable for each activity and each subject		
 
 ```
 fMergeData <- aggregate(x = mergeData[sm_cols], by = mergeData[c("subject", "actname")], FUN = mean)
 write.csv(fMergeData, file = "./fMergeData.csv",row.names=FALSE)
 ```
+fMergeData is the data after step 5.
+fMergeData has 180 rows with 88 columns of which 86 are std and mean 
+measures while 1 columns is subject and 1 columns is the activity
