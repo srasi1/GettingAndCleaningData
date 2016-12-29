@@ -106,9 +106,9 @@ dt_std_mean <- dt[,c(1, 2, sm_col_ind)]
 dt_std_mean is the data frame that has the data of step2
 i.e. with all columns of mean, std for each subject & label(activity)
 
-*46 columns with mean
-*7 columns with Mean
-*33 columns with std
+* 46 columns with mean
+* 7 columns with Mean
+* 33 columns with std
 
 86 columns of measurement data, one column 
 for subject and one column for activity
