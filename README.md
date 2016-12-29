@@ -113,10 +113,11 @@ i.e. with all columns of mean, std for each subject & label(activity)
 86 columns of measurement data, one column 
 for subject and one column for activity
 
-storing all std and mean col names 
-in sm_cols variable for future use
 dim(dt_std_mean)
 [1] 10299 88
+
+storing all std and mean col names 
+in sm_cols variable for future use
 
 ```
 sm_cols <- grep("mean|std|Mean", feats$V2)
@@ -157,7 +158,17 @@ colnames(mergeData) <- sm_col_name
 drops <- c("label","id")
 mergeData <- mergeData[ , !(names(mergeData) %in% drops)]
 ```
-				
+A sample of mergeData
+> head(mergeData)
+  subject tBodyAccmeanX tBodyAccmeanY tBodyAccmeanZ tBodyAccstdX tBodyAccstdY
+1       1     0.2885845   -0.02029417    -0.1329051   -0.9952786   -0.9831106
+2       1     0.2784188   -0.01641057    -0.1235202   -0.9982453   -0.9753002
+3       1     0.2796531   -0.01946716    -0.1134617   -0.9953796   -0.9671870
+4       1     0.2791739   -0.02620065    -0.1232826   -0.9960915   -0.9834027
+5       1     0.2766288   -0.01656965    -0.1153619   -0.9981386   -0.9808173
+6       1     0.2771988   -0.01009785    -0.1051373   -0.9973350   -0.9904868
+
+
 ######Step 5				
 From the data set in step 4, 		
 create a second, independent tidy data	
