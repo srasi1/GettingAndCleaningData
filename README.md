@@ -76,7 +76,7 @@ dt <- cbind(dt, dt_set)
 
  dt is the data frame that has the data of step1
  At this step
- dim(dt)
+ > dim(dt)
  [1] 10299   563
 
 
@@ -113,7 +113,7 @@ i.e. with all columns of mean, std for each subject & label(activity)
 86 columns of measurement data, one column 
 for subject and one column for activity
 
-dim(dt_std_mean)
+> dim(dt_std_mean)
 [1] 10299 88
 
 storing all std and mean col names 
