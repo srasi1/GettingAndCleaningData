@@ -188,8 +188,8 @@ write.csv(fMergeData, file = "./fMergeData.csv",row.names=FALSE)
 fMergeData is the data after step 5.
 fMergeData has 180 rows with 88 columns of which 86 are std and mean 
 measures while 1 columns is subject and 1 columns is the activity
-### fMergeData.csv is the final tiday data set
-### It has means for each measurement against each person for each Activity
-### Ex: subject 1 has 6 rows of data i.e. for WALKING, WALKING_UPSTAIRS, 
-### WALKING_DOWNSTAIRS, SITTING, STANDING and LAYING
-### This is repeated for all 30 subjects to generage 180 rows of data
+#### fMergeData.csv is the final tiday data set
+#### It has means for each measurement against each person for each Activity
+#### Ex: subject 1 has 6 rows of data i.e. for WALKING, WALKING_UPSTAIRS, 
+#### WALKING_DOWNSTAIRS, SITTING, STANDING and LAYING
+#### This is repeated for all 30 subjects to generage 180 rows of data
