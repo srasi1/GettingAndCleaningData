@@ -173,4 +173,4 @@ mergeData <- mergeData[ , !(names(mergeData) %in% drops)]
 
 fMergeData <- aggregate(x = mergeData[sm_cols], by = mergeData[c("subject", "actname")], FUN = mean)
 write.csv(fMergeData, file = "./fMergeData.csv",row.names=FALSE)
-
+write.table(fMergeData, file="./fMergeData.txt", row.names = FALSE)

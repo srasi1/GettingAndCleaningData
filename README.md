@@ -19,9 +19,9 @@ You should create one R script called run_analysis.R that does the following.
     5. From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
     
 ##  Explanation of Code (run_analysis.R)
-  
+#### "fMergeData.csv"   - Final tidy data
 
-###### download the raw data
+###### Step 0 - download the raw data
 
 ```R
 library(dplyr)
@@ -188,3 +188,20 @@ write.csv(fMergeData, file = "./fMergeData.csv",row.names=FALSE)
 fMergeData is the data after step 5.
 fMergeData has 180 rows with 88 columns of which 86 are std and mean 
 measures while 1 columns is subject and 1 columns is the activity
+##### fMergeData.csv is the final tiday data set
+##### It has means for each measurement against each person for each Activity
+##### Ex: subject 1 has 6 rows of data i.e. for WALKING, WALKING_UPSTAIRS, 
+##### WALKING_DOWNSTAIRS, SITTING, STANDING and LAYING
+##### This is repeated for all 30 subjects to generage 180 rows of data
+
+A sample of fMergeData
+> dplyr::filter(dplyr::select(fMergeData, subject:tBodyAccstdX), subject == 1)
+
+row |subject |       actname     | tBodyAccmeanX | tBodyAccmeanY |tBodyAccmeanZ
+----|--------|-------------------|---------------|---------------|-------------
+1   |      1 |            LAYING |    0.2215982  | -0.040513953  |  -0.1132036
+2   |      1 |           SITTING |    0.2612376  | -0.001308288  |  -0.1045442
+3   |      1 |          STANDING |    0.2789176  | -0.016137590  |  -0.1106018
+4   |      1 |           WALKING |    0.2773308  | -0.017383819  |  -0.1111481
+5   |      1 |WALKING_DOWNSTAIRS |    0.2891883  | -0.009918505  |  -0.1075662
+6   |      1 |  WALKING_UPSTAIRS |    0.2554617  | -0.023953149  |  -0.0973020
