@@ -193,3 +193,13 @@ measures while 1 columns is subject and 1 columns is the activity
 ##### Ex: subject 1 has 6 rows of data i.e. for WALKING, WALKING_UPSTAIRS, 
 ##### WALKING_DOWNSTAIRS, SITTING, STANDING and LAYING
 ##### This is repeated for all 30 subjects to generage 180 rows of data
+A sample of mergeData
+> dplyr::filter(dplyr::select(fMergeData, subject:tBodyAccstdX), subject == 1)
+ |subject   |       actname | tBodyAccmeanX |tBodyAccmeanY |tBodyAccmeanZ
+ ----------|---------------|---------------|--------------|-------------
+1 |      1 |            LAYING |    0.2215982 | -0.040513953  |  -0.1132036
+2 |      1 |           SITTING |    0.2612376 | -0.001308288  |  -0.1045442
+3 |      1 |          STANDING |    0.2789176 | -0.016137590  |  -0.1106018
+4 |      1 |           WALKING |    0.2773308 | -0.017383819  |  -0.1111481
+5 |      1 |WALKING_DOWNSTAIRS |    0.2891883 | -0.009918505  |  -0.1075662
+6 |      1 |  WALKING_UPSTAIRS |    0.2554617 | -0.023953149  |  -0.0973020
